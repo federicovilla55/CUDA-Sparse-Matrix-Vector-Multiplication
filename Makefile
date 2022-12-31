@@ -1,17 +1,20 @@
 CC 			=	gcc
+NV 			= 	nvcc
 CFLAGS		=	-O3 -Wunused-result
-PROG		=	symgs/symgs-test spmv/spmv-test smith-waterman/sw-test
+NVCCFLAGS	=	-O3
+PROG		=	spmv/spmv-cpu spmv/spmv-gpu spmv/spmv-naive
 
 all:$(PROG)
 
-symgs/symgs-test: symgs/symgs-csr.c
+spmv/spmv-cpu: spmv/spmv-csr.c
 	$(CC) $(CFLAGS) $^ -o $@ 
 
-spmv/spmv-test: spmv/spmv-csr.c
-	$(CC) $(CFLAGS) $^ -o $@ 
+spmv/spmv-gpu: spmv/spmv-csr.cu
+	$(NV) $(NVCCFLAGS) $^ -o $@
 
-smith-waterman/sw-test: smith-waterman/sw.c
-	$(CC) $(CFLAGS) $^ -o $@ 
+spmv/spmv-naive: spmv/simple-spmv.cu
+	$(NV) $(NVCCFLAGS) $^ -o $@
+
 
 .PHONY:clean
 clean:

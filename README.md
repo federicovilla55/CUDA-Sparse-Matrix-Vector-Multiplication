@@ -1,33 +1,34 @@
 ## Introduction
 <p align="justify">
-This repository contains all the programs that you have to use as a starting point for the GPU-101 Projects.
+This repository contains three different implementations of sparse matrix-vector multiplication. One implementation runs in C and runs on a single thread, the other two are in CUDA and runs on multiple GPU threads.
+A more detailed description of the work can be found in the <em>Sparse_Matrix_Vector_Multiplication_Report.pdf</em> file.
 </p>
 
 ## Usage
 
 ### Compilation
 
-You only need GCC to compile the various programs, which you should already have installed if you did already setup your maching for CUDA.
-To compile all the examples simply type
+To compile the three files you just have to run:
 ```
 make
 ```
 Within the scope of this folder.
-Note that the examples are all compiled using the -O3 flag, you have to use this flag also when compiling the GPU version of the code using nvcc.
-All the parameters regarding input settings CANNOT BE CHANGED.
-The smith-waterman algorithm is the only one that generates all the inputs at runtime, while for symgs and spmv you should also use a sparse matrix as input (the program will not run without it).
-The one you should use for all of your comparisons has already been prepared for you and is available here:
 
-https://www.dropbox.com/s/jzn573j0z9ffl7h/kmer_V4a.mtx?dl=0
+To compile the three files, C and CUDA compilers are needed.
 
-You can fork this repo and use this as a starting point for your project.
-Remember to include all your source code as well as a PDF (4/5 pages) with your project report in the repository.
-Please DO NOT send me your repository, instead write the address of your repo in this shared google drive:
+To run each file after they have been compiled, just navigate in the <em>spmv</em> directory and run them with the command: `./FileToExecute`.
 
-https://docs.google.com/spreadsheets/d/14sAdNkW2cGFkbGSs7X1Nzru4U0QvoxK1QYq7gB6e2pk/edit?usp=sharing
-
-For the sake of convenience here is also the file containing the assigned project for all the partecipants to GPU-101: 
-
-https://docs.google.com/spreadsheets/d/1FuVhxWxUPu5AtFw8xdbQEwp-se8vmi1xHnbswostcLs/edit?usp=sharing
-
-NOTE: you cannot change your assigned project, and copying each others project will be considered cheating and will result in you not passing the course.
+### Repository Tree
+```
+├── Makefile
+├── README.md
+├── Sparse_Matrix_Vector_Multiplication_Report.pdf
+└── spmv
+    ├── simple-spmv.cu
+    ├── spmv-csr.c
+    └── spmv-csr.cu
+```
+The three implementations of the sparse matrix-vector multiplication are:
+-  <em>spmv-csr.c</em>, a C single thread CPU implementation;
+-  <em>simple-spmv.cu</em>, a CUDA one thread per matrix row implementation;
+-  <em>spmv-csr.c</em>, a CUDA one 32-thread warp per matrix row.
